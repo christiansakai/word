@@ -1,0 +1,22 @@
+{
+  "name": "word",
+  "version": "1.0.0",
+  "description": "My collection of random articles, tutorials, and my own attempt about creating a programming languages.",
+  "main": "parserCombinator.js",
+  "scripts": {
+    "test": "jest --env=node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christiansakai/word.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christiansakai/word/issues"
+  },
+  "homepage": "https://github.com/christiansakai/word#readme",
+  "dependencies": {
+    "jest": "^23.4.2"
+  }
+}
