@@ -1,66 +1,31 @@
-/**
- * Parse a character
- */
-const char = (char) => (string) => {
-  if (string[0] === char) {
-    return {
-      success: true,
-      rest: string.slice(1),
-    }
-  }
+class Parser {
+	constructor(parse) {
+		this.parse = parse
+	}
 
-  return {
-    success: false,
-    rest: string,
-  }
-}
+	run(iterable) {
+		if (iterable instanceof Stream) {
+			return this.parse(iterable)
+		} else {
+			return this.parse(new Stream(iterable))
+		}
+	}
 
-/**
- * Run a sequence of parsers
- * until it fails
- */
-const sequence = (parses) => (string) => {
-  let next = string
+	map(f) {
+		return new Parser((stream) => this.parse(stream).map(f))
+	}
 
-  for (let i = 0; i < parses.length; i++) {
-    const parse = parses[i]
-    const { success, rest } = parse(next)
+	bimap(s, f) {
+		return new Parser((stream) => this.parse(stream).bimap(s, f))
+	}
 
-    if (!success) {
-      return { success, rest }
-    }
+	chain(f) {
+		return new Parser(stream =>
+			this.parse(stream).chain((v, s) => f(v).run(s))
+		)
+	}
 
-    next = rest
-  }
-
-  return {
-    success: true,
-    rest: next,
-  }
-}
-
-/**
- * Tries each of the parsers until
- * one of it works or the whole things fails
- */
-const either = (parses) => (string) => {
-  for (let i = 0; i < parses.length; i++) {
-    const parse = parses[i]
-    const { success, rest } = parse(string)
-
-    if (success) {
-      return { success, rest }
-    }
-  }
-
-  return {
-    success: false,
-    rest: string,
-  }
-}
-
-module.exports = {
-  char,
-  sequence,
-  either,
+	fold(s, f) {
+		return new Parser((stream) => this.parse(stream).fold(s, f))
+	}
 }

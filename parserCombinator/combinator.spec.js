@@ -2,9 +2,9 @@ const {
   char,
   sequence,
   either,
-} = require('./parserCombinator')
+} = require('./combinator')
 
-describe('Parser Combinator', () => {
+describe('combinator', () => {
   describe('char', () => {
     it('success', () => {
       const string = 'abc'
