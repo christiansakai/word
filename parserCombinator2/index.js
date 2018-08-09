@@ -40,3 +40,46 @@ function plus(input) {
 
   return failure('+', input)
 }
+
+function plusExpr(input) {
+	const result1 = integer(input)
+	if (result1.isFailure) return result1
+
+	const { data: int1, rest: input1 } = result1
+
+	const result2 = integer(input2)
+	if (result2.isFailure) return result2
+
+	const { rest: input2 } = result2 
+
+	const result3 = integer(input2)
+	if (result3.isFailure) return result3
+
+	const { data: int2, rest: input3 } = result3
+
+	if (input3.length > 0) {
+		return failure('end of input', input3)
+	}
+
+	return success(int1 + int2, input3)
+}
+
+function text(match) {
+	return function textParser(input) {
+		if (input.startsWith(match)) {
+			return success(match, input.slice(match.length))
+		}
+
+		return failure(`'${match}'`, input)
+	}
+}
+
+function regex(regex) {
+	const anchoredRegex = new RegExp(`^${regex.source}`)
+
+	return function regexParser(input) {
+		const match = anchoredRegex.exec(input)
+		if (match != null) {
+		}
+	}
+}

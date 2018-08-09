@@ -1,4 +1,5 @@
 # Word
+# NO ONGOING ACTIVITY NOW
 
 My collection of random articles, tutorials, and my own attempt about creating a programming languages.
 
